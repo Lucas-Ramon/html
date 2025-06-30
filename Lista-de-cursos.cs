@@ -1,134 +1,140 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Personal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #fff 3px solid;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-        img {
-            max-width: 150px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto;
-        }
-        .content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background: #f4f4f4;
-        }
-        h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Perfil Personal</h1>
-    </header>
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-    <div class="container">
-        <div class="content">
-            <img src="lucas.jpeg" alt="Girl in a jacket">
-            <h2>Información Personal</h2>
-            <p><strong>Nombre:</strong> Antonio Lucas</p>
-            <p><strong>Edad:</strong> 40 años</p>
-            <p><strong>Ciudad de residencia:</strong> Santo Domingo</p>
-            <p><strong>Título de bachiller o tercer nivel:</strong> Tecnología de la Información</p>
+namespace EjerciciosConsola
+{
+    class Curso
+    {
+        public string Nombre { get; set; }
+        public double Nota { get; set; }
 
-            <h2>Pasatiempos Favoritos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Pasatiempo</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Lectura</td>
-                        <td>Disfruto leer libros de diversos géneros.</td>
-                    </tr>
-                    <tr>
-                        <td>Cine</td>
-                        <td>Me gusta ver películas de diferentes géneros.</td>
-                    </tr>
-                    <tr>
-                        <td>Jardinería</td>
-                        <td>Cuidar y cultivar plantas es muy relajante para mí.</td>
-                    </tr>
-                </tbody>
-            </table>
+        public Curso(string nombre)
+        {
+            Nombre = nombre;
+        }
 
-            <h2>Deportes Favoritos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Deporte</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Fútbol</td>
-                        <td>Me encanta jugar y seguir partidos de fútbol.</td>
-                    </tr>
-                    <tr>
-                        <td>Natación</td>
-                        <td>Me gusta nadar para mantenerme en forma.</td>
-                    </tr>
-                    <tr>
-                        <td>Ciclismo</td>
-                        <td>Disfruto de los paseos en bicicleta durante el fin de semana.</td>
-                    </tr>
-                </tbody>
-            </table>
+        public void PedirNota()
+        {
+            Console.Write($"Ingresa la nota para {Nombre}: ");
+            double.TryParse(Console.ReadLine(), out double nota);
+            Nota = nota;
+        }
 
-            <h2>Expectativa de la Profesión</h2>
-            <p>Espero que la carrera en Tecnología de la Información me permita adquirir habilidades avanzadas en el campo de la tecnología y la informática. Estoy emocionado por la oportunidad de trabajar en proyectos innovadores y contribuir con soluciones tecnológicas efectivas. Mi meta es avanzar profesionalmente y participar en el desarrollo de tecnologías que mejoren la vida cotidiana.</p>
-        </div>
-    </div>
-</body>
-</html>
+        public void MostrarNota()
+        {
+            Console.WriteLine($"En {Nombre} obtuviste una nota de {Nota}");
+        }
+    }
+
+    class ProgramaPrincipal
+    {
+        static List<Curso> cursos = new List<Curso>
+        {
+            new Curso("Biología"),
+            new Curso("Arte"),
+            new Curso("Informática"),
+            new Curso("Geografía"),
+            new Curso("Inglés")
+        };
+
+        static void Main(string[] args)
+        {
+            int opcion;
+            do
+            {
+                Console.WriteLine("\n--- MENÚ DE EJERCICIOS ---");
+                Console.WriteLine("1. Mostrar lista de cursos");
+                Console.WriteLine("2. Mostrar mensaje: Estoy inscrito en...");
+                Console.WriteLine("3. Ingresar y mostrar notas");
+                Console.WriteLine("4. Números ganadores del bingo (ordenados)");
+                Console.WriteLine("5. Mostrar números del 20 al 30 en orden inverso");
+                Console.WriteLine("0. Salir");
+                Console.Write("Selecciona una opción: ");
+
+                int.TryParse(Console.ReadLine(), out opcion);
+                Console.WriteLine();
+
+                switch (opcion)
+                {
+                    case 1:
+                        MostrarCursos();
+                        break;
+                    case 2:
+                        MostrarMensajesCursos();
+                        break;
+                    case 3:
+                        PedirYMostrarNotas();
+                        break;
+                    case 4:
+                        OrdenarBingo();
+                        break;
+                    case 5:
+                        MostrarNumerosInversos();
+                        break;
+                    case 0:
+                        Console.WriteLine("Saliendo del programa...");
+                        break;
+                    default:
+                        Console.WriteLine("Opción inválida.");
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+
+        static void MostrarCursos()
+        {
+            Console.WriteLine("Cursos disponibles:");
+            foreach (var curso in cursos)
+            {
+                Console.WriteLine($"- {curso.Nombre}");
+            }
+        }
+
+        static void MostrarMensajesCursos()
+        {
+            foreach (var curso in cursos)
+            {
+                Console.WriteLine($"Estoy inscrito en {curso.Nombre}");
+            }
+        }
+
+        static void PedirYMostrarNotas()
+        {
+            Console.WriteLine("Ingresa tus notas:");
+            foreach (var curso in cursos)
+            {
+                curso.PedirNota();
+            }
+
+            Console.WriteLine("\nResultados:");
+            foreach (var curso in cursos)
+            {
+                curso.MostrarNota();
+            }
+        }
+
+        static void OrdenarBingo()
+        {
+            Console.Write("Introduce los números ganadores del bingo separados por espacios: ");
+            string entrada = Console.ReadLine();
+            List<int> numeros = entrada.Split(' ').Select(n => int.Parse(n)).ToList();
+            numeros.Sort();
+
+            Console.WriteLine("Números ordenados: " + string.Join(", ", numeros));
+        }
+
+        static void MostrarNumerosInversos()
+        {
+            List<int> numeros = new List<int>();
+            for (int i = 20; i <= 30; i++)
+            {
+                numeros.Add(i);
+            }
+            numeros.Reverse();
+            Console.WriteLine("Números del 20 al 30 en orden inverso: " + string.Join(", ", numeros));
+        }
+    }
+}
+
